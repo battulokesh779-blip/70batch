@@ -1,4 +1,4 @@
-//To provide all re-usabel methods / functions related to whole application
+import { Locator } from "@playwright/test";
 import { Global } from "./Global";
 export class General extends Global{
     // open application
@@ -18,7 +18,8 @@ export class General extends Global{
     }
     // Logout from application
     async logout(){
-        await this.page.getByText(this.logout_link).click();
+        await this.page.getByRole(this.logout_role as "link", { name: this.logout_name }).click();
+        await this.page.getByText(this.logout_name).click();
         await this.page.waitForTimeout(3000);
         console.log('logout completed');
     }
@@ -42,6 +43,6 @@ export class General extends Global{
         await frame.locator(this.check_box).nth(1).check();
         await frame.locator(this.Delete_button).click();
         console.log('Employee deleted');
-
+ 
     }
 }

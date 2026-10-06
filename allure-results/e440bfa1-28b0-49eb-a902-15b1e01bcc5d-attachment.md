@@ -1,0 +1,72 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Testsuite.spec.ts >> Test suite >> TC001
+- Location: tests\Testsuite.spec.ts:5:5
+
+# Error details
+
+```
+Error: page.goto: net::ERR_INTERNET_DISCONNECTED at https://ctcorphyd.com/SureshIT/login.php
+Call log:
+  - navigating to "https://ctcorphyd.com/SureshIT/login.php", waiting until "load"
+
+```
+
+# Test source
+
+```ts
+  1  | //To provide all re-usabel methods / functions related to whole application
+  2  | import { Global } from "./Global";
+  3  | export class General extends Global{
+  4  |     // open application
+  5  |     async openApplication(){
+> 6  |         await this.page.goto(this.url);
+     |                         ^ Error: page.goto: net::ERR_INTERNET_DISCONNECTED at https://ctcorphyd.com/SureshIT/login.php
+  7  |         await this.page.waitForTimeout(3000);
+  8  |         console.log ("Application opened");
+  9  |     };
+  10 |     // login into application
+  11 |     async login(){
+  12 |         await this.page.locator(this.textbox_loginname).fill(this.username);
+  13 |         await this.page.locator(this.textbox_password).fill(this.password);
+  14 |         await this.page.waitForTimeout(3000);
+  15 |         await this.page.locator(this.login_button).click();
+  16 |         console.log('Login completed');
+  17 |         await this.page.waitForTimeout(3000);
+  18 |     }
+  19 |     // Logout from application
+  20 |     async logout(){
+  21 |         await this.page.getByText(this.logout_link).click();
+  22 |         await this.page.waitForTimeout(3000);
+  23 |         console.log('logout completed');
+  24 |     }
+  25 |     //enter into fream
+  26 |     async AddEmply(){
+  27 |         const fream = this.page.frameLocator(this.ifream);
+  28 |         await fream.locator(this.add_button).click();
+  29 |         await fream.locator(this.textbox_firstname).fill(this.firstname);
+  30 |         await fream.locator(this.textbox_lastname).fill(this.lastname);
+  31 |         await this.page.waitForTimeout(3000);
+  32 |         await fream.locator(this.save_button).click();
+  33 |         await this.page.waitForTimeout(3000);
+  34 |         console.log("New Employee Added");
+  35 |     }
+  36 |     //Delet Employee
+  37 |     async Delete(){
+  38 |         const frame = this.page.frameLocator(this.ifream);
+  39 |         await frame.locator(this.search_By).selectOption(this.value);
+  40 |         await frame.locator(this.search_For).fill(this.emp_id)
+  41 |         await frame.locator(this.search_button).click();
+  42 |         await frame.locator(this.check_box).nth(1).check();
+  43 |         await frame.locator(this.Delete_button).click();
+  44 |         console.log('Employee deleted');
+  45 |  
+  46 |     }
+  47 | }
+```

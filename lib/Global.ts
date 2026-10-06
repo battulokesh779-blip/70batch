@@ -1,8 +1,9 @@
-//To provide Test Data & object/ elements related to whole application
-import {Page} from '@playwright/test';
+import {Locator, Page} from '@playwright/test';
 export class Global {
-    constructor(public page : Page){
+    public page!: Page;
+    constructor(page: Page) {
         this.page = page;
+       // this.logout_link = this.page.getByRole('link', { name: 'logout' });
     }
  //***********Test Data************* */
  public url : string = "https://ctcorphyd.com/SureshIT/login.php";
@@ -18,7 +19,7 @@ export class Global {
  public  textbox_loginname = "//*[@name='txtUserName']";
  public  textbox_password =  "//*[@name='txtPassword']";
  public  login_button     =  "//*[@value='Login']";
- public  logout_link      =  "Logout";
+ //public  logout_link : Locator     = this.page.getByRole('link',{name:'logout'});
  public  ifream           =  "//*[@id='rightMenu']";
  public  add_button      =  '//*[@value="Add"]';
  public  save_button     =  '//*[@value="Save"]';
@@ -28,5 +29,7 @@ export class Global {
  public  search_For       =   '//*[@id="loc_name"]';
  public  search_button     =   '//*[@value="Search"]';
  public  check_box         =    '//*[@name="chkLocID[]"]';
- public  Delete_button     =  '//*[@value="Delete"]';  
+ public  Delete_button     =  '//*[@value="Delete"]'; 
+ public logout_role       =  "link";
+ public logout_name      =    "logout" ;
 }
